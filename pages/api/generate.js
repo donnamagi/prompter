@@ -12,6 +12,7 @@ export default async function (req, res) {
       model: "gpt-3.5-turbo",
       temperature: 1,
       max_tokens: 1000,
+      // stream: true, later :)
     });
 
     const assistant_reply = completion.choices[0].message.content;
