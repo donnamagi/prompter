@@ -1,5 +1,4 @@
-const milestone_template = `
-Fill out this milestone template for a project. Imagine you are a senior project manager overseeing this specific milestone in a larger project.
+export const template = `Fill out this milestone template for a project. Imagine you are a senior project manager overseeing this specific milestone in a larger project.
 
 Context:
 
@@ -45,5 +44,3 @@ Format:
 
 Tone: Professional, concise, and clear, ensuring each section of the template is filled out with relevant details and in a format that is easily translatable to Notion markdown.
 `;
-
-export default milestone_template;

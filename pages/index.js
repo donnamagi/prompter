@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
-import milestone_template from "./prompts/milestone_template";
 import fillPlaceholders from "./api/process";
+import { getTemplate, templates } from "./prompts/get_template";
 
 export default function Home() {
   const [result, setResult] = useState();
@@ -10,7 +10,10 @@ export default function Home() {
   async function onSubmit(event) {
     event.preventDefault();
 
-    const result = await fillPlaceholders(milestone_template);
+    const template = await getTemplate(event.target.value);
+    const result = await fillPlaceholders(template);
+
+    if (result === null) return; // user cancelled
 
     try {
       const response = await fetch("/api/generate", {
@@ -50,7 +53,15 @@ export default function Home() {
         <h3>Test</h3>
         <div className={styles.result}>{result}</div>
         <form onSubmit={onSubmit}>
-          <input type="submit" value="Milestone Template" />
+          {Object.keys(templates).map((key) => (
+            <input
+              key={key}
+              type="button"
+              name="template"
+              value={key}
+              onClick={onSubmit}
+            />
+          ))}
         </form>
       </main>
     </div>
@@ -61,9 +72,9 @@ function styleResponse(response) {
   const paragraphs = response.split('\n\n');
   const styledParagraphs = [];
 
-  paragraphs.forEach((content) => {
+  paragraphs.forEach((content, index) => {
     const paragraph = (
-      <p className={styles.result}>
+      <p key={index} className={styles.result}>
         {content}
       </p>
     );

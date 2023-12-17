@@ -10,8 +10,10 @@ export default async function fillPlaceholders(text) {
   let filledText = text;
 
   for (let placeholder of placeholders) {
-      let userInput = prompt(`Please enter a value for ${placeholder}:`);
-      filledText = filledText.replace(`{${placeholder}}`, userInput);
+    let userInput = prompt(`Please enter a value for ${placeholder}:`);
+    if (userInput === null) return null;
+
+    filledText = filledText.replace(`{${placeholder}}`, userInput);
   }
   
   return filledText;
