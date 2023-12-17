@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
-import fillPlaceholders from "./api/process";
-import { getTemplate, templates } from "./prompts/get_template";
+import fillPlaceholders from "../utils/process";
+import { getTemplate, templates } from "../utils/get_template";
 
 export default function Home() {
   const [result, setResult] = useState();
@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>test</title>
+        <title>Prompt templates</title>
       </Head>
 
       <main className={styles.main}>

@@ -1,6 +1,7 @@
 export const templates = {
   "Milestone": "milestone_template.js",
-  "User personas": "personas_template.js"
+  "User personas": "personas_template.js",
+  "Ticket": "ticket_template.js"
 };
 
 export async function getTemplate(input) {
