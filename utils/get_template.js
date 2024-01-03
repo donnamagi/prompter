@@ -10,9 +10,9 @@ export async function getTemplate(input) {
 
   let template_module;
   try {
-    template_module = await import(`./${template_path}`);
+    template_module = await import(`../prompts/${template_path}`);
+    return template_module.template;
   } catch (error) {
-    throw new Error("Can't find template: " + template_path);
+    throw new Error(`Can't find template ${template_path}. Is the file in prompts?`);
   }
-  return template_module.template;
 }
