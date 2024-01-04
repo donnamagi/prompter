@@ -5,7 +5,7 @@ function extractPlaceholders(text) {
   return placeholders.map(p => p.replace(/[{}]/g, '')); 
 }
 
-export default async function fillPlaceholders(text) {
+export async function fillPlaceholders(text) {
   let placeholders = extractPlaceholders(text);
   let filledText = text;
 
