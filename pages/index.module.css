@@ -74,15 +74,17 @@
   margin-right: 40px;
 }
 
-.result div {
-  margin-bottom: 10px;
+.target {
   border-radius: 4px;
   padding: 10px;
   transition: ease-in-out 0.1s;
   cursor: pointer;
-
 }
 
-.result div:hover {
+.target:hover {
   outline: 1px solid rgb(120, 120, 120);
+}
+
+.childHoverActive:hover {
+  outline: none;
 }
