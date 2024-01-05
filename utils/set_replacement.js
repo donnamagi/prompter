@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import callAPI from './call_api';
+import { callAPI } from './index';
 
 export async function replaceSelection(target) {
   const {id, comment} = getStructuredPrompt(target)
