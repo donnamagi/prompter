@@ -5,19 +5,34 @@ import styles from '../index.module.css';
 export default function Result({ result }) {
 
   const handleMouseEnter = (event) => {
-    if (event.target.classList.contains(`${styles.childHoverActive}`)) return; // if the parent is already hidden, do nothing
-    if (event.target.classList.contains(`${styles.target}`)) {
-      const target_below = event.target.parentElement.closest(`.${styles.target}`);
-      if (target_below) {
-        target_below.classList.add(`${styles.childHoverActive}`); //hides the parent's hover effect
+    let target = event.target;
+    while (target) {
+      // update only if youre on a valid target
+      if (target.classList.contains(`${styles.target}`)) {
+        // hide the hovered div(s) below
+        let parent = target.parentElement.closest(`.${styles.target}`);
+        if (parent) {
+          parent.classList.add(`${styles.childHoverActive}`); 
+        }
+
       }
+      target = target.parentElement;
     }
   }
 
   const handleMouseLeave = (event) => {
-    const target_below = event.target.parentElement.closest(`.${styles.childHoverActive}`);
-    if (target_below) {
-      target_below.classList.remove(`${styles.childHoverActive}`); // unhides the parent's hover effect
+    let target = event.target;
+    while (target) {
+      // update only if youre on a valid target
+      if (target.classList.contains(`${styles.target}`)) {
+        let parent = target.parentElement.closest(`.${styles.target}`);
+        if (parent) {
+          parent.classList.remove(`${styles.childHoverActive}`); 
+          break // only show the one closest to the mouse
+        }
+      }
+      // check next parent
+      target = target.parentElement;
     }
   };
 
