@@ -10,7 +10,7 @@ export default function Templates({ setResult }) {
     const filled_template = await fillPlaceholders(template);
 
     if (filled_template === null) return; // user cancelled
-
+    setResult('Loading...')
     const api_response = await callAPI(filled_template);
     const parsed_result = marked.parse(api_response);    
     setResult(parsed_result);

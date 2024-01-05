@@ -6,6 +6,7 @@ export async function replaceSelection(target) {
   if (structuredPrompt === null) return; 
 
   const { id, comment } = structuredPrompt;
+  document.querySelector(`#${id}`).innerHTML = 'one sec :)';
   const api_response = await callAPI(comment);
   setHTML(id, api_response);
 }
