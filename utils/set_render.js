@@ -1,4 +1,5 @@
 import styles from '../pages/index.module.css';
+import { marked } from 'marked';
 
 function generateIdAttribute() {
   var id = Math.random().toString(36).substring(4, 10);
@@ -27,3 +28,5 @@ export const renderer = {
     return `<p${id_att} class=${styles.target}>${text}</p>\n`;
   }
 };
+
+marked.use({ renderer });

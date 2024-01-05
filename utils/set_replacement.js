@@ -2,7 +2,10 @@ import { marked } from 'marked';
 import { callAPI } from './index';
 
 export async function replaceSelection(target) {
-  const {id, comment} = getStructuredPrompt(target)
+  const structuredPrompt = getStructuredPrompt(target);
+  if (structuredPrompt === null) return; 
+
+  const { id, comment } = structuredPrompt;
   const api_response = await callAPI(comment);
   setHTML(id, api_response);
 }
@@ -18,7 +21,7 @@ function getStructuredPrompt(target) {
   const comment = `To be replaced: "${content}" 
   Feedback: ${userComment} 
   If not otherwise specified under feedback, ${answer_in}`;
-  
+
   return {id, comment};
 }
 
