@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.14",
     "marked": "^11.1.1",
     "next": "^13.1.1",
     "openai": "^4.11.1",
