@@ -9,8 +9,8 @@ export default async function (req, res) {
   try {
     const completion = await openai.chat.completions.create({
       messages: [ ...conversation_history ],
-      //model: "gpt-4",
-      model: "gpt-3.5-turbo-0613",
+      model: "gpt-4",
+      // model: "gpt-3.5-turbo-0613",
       temperature: 1,
       max_tokens: 1000,
       // stream: true, later :)

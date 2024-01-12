@@ -1,6 +1,6 @@
 import { React, useEffect } from 'react';
 import { replaceSelection } from '../../utils/index';
-import styles from '../index.module.css';
+import styles from './Result.module.css';
 
 export default function Result({ result }) {
 

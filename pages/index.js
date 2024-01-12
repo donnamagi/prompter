@@ -1,7 +1,9 @@
 import Head from "next/head";
 import { useState, useRef } from "react";
 import styles from "./index.module.css";
-import TemplateButtons from "./components/TemplateButtons";
+
+import Templates from "./components/Templates";
+import Button from "./components/Button";
 import Result from "./components/Result";
 import TurndownService from "turndown";
 import conversation_history from "./api/chat";
@@ -41,11 +43,13 @@ export default function Home() {
             <div ref={resultRef}>
               <Result result={result} />
             </div>
-            <button onClick={restart}>Restart</button>
-            <button onClick={handleCopy}>Copy</button>
+            <Button title="Restart" onClick={restart} />
+            <Button title="Copy" onClick={handleCopy} />
           </>
           :
-          <TemplateButtons setResult={setResult} />
+          <container className={styles.container}>
+            <Templates setResult={setResult} />
+          </container>
         }
       </main>
     </div>

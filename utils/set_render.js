@@ -1,4 +1,4 @@
-import styles from '../pages/index.module.css';
+import styles from '../pages/components/Result.module.css';
 import { marked } from 'marked';
 
 function generateIdAttribute() {

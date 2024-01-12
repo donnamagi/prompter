@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { fillPlaceholders, callAPI } from '../../utils/index';
+import Button from './Button';
 import { marked } from 'marked';
 
 export default function Templates({ setResult }) {
@@ -28,11 +29,10 @@ export default function Templates({ setResult }) {
     fetchTemplates();
   }, []);
 
-  async function onSubmit(event) {
-    event.preventDefault();
+  async function getTemplateContent(key) {
 
     try {
-      const id = templates[event.target.value].id;
+      const id = templates[key].id;
       const response = await fetch('/api/notion/get_content', {
         method: 'POST',
         headers: {
@@ -61,21 +61,13 @@ export default function Templates({ setResult }) {
   }
   
   return (
-    <div>
+    <>
       <h1>Templates</h1>
       <p>Choose a template to get started.</p>
-      <form onSubmit={onSubmit}>
-          {Object.keys(templates).length > 0 && Object.keys(templates).map((key) => (
-            <input
-            key={key}
-            type="button"
-            name="template"
-            value={key}
-            onClick={onSubmit}
-            />
-            ))}
-      </form>
+      {Object.keys(templates).length > 0 && Object.keys(templates).map((key) => (
+        <Button onClick={() => getTemplateContent(key)} title={key} />
+      ))}
       <p> {isLoading} </p> 
-    </div>
+    </>
   )
 }
