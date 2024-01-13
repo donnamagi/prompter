@@ -1,7 +1,5 @@
 import Head from "next/head";
 import { useState, useRef } from "react";
-import styles from "./index.module.css";
-
 import Templates from "./components/Templates";
 import Button from "./components/Button";
 import Result from "./components/Result";
@@ -37,17 +35,19 @@ export default function Home() {
       <Head>
         <title>Prompt templates</title>
       </Head>
-      <main className={styles.main} >
+      <main className="flex justify-center min-h-screen">
         {result ? 
           <>
             <div ref={resultRef}>
               <Result result={result} />
             </div>
-            <Button title="Restart" onClick={restart} />
-            <Button title="Copy" onClick={handleCopy} />
+            <div className="justify-center items-center">
+              <Button title="Restart" onClick={restart} />
+              <Button title="Copy" onClick={handleCopy} />
+            </div>
           </>
           :
-          <container className={styles.container}>
+          <container className='w-2/3 md:w-1/3'>
             <Templates setResult={setResult} />
           </container>
         }

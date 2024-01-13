@@ -1,6 +1,5 @@
 import { React, useEffect } from 'react';
 import { replaceSelection } from '../../utils/index';
-import styles from './Result.module.css';
 
 export default function Result({ result }) {
 
@@ -8,11 +7,11 @@ export default function Result({ result }) {
     let target = event.target;
     while (target) {
       // update only if youre on a valid target
-      if (target.classList.contains(`${styles.target}`)) {
+      if (target.classList.contains('target')) {
         // hide the hovered div(s) below
-        let parent = target.parentElement.closest(`.${styles.target}`);
+        let parent = target.parentElement.closest('target');
         if (parent) {
-          parent.classList.add(`${styles.childHoverActive}`); 
+          parent.classList.add('no-hover'); 
         }
 
       }
@@ -24,10 +23,10 @@ export default function Result({ result }) {
     let target = event.target;
     while (target) {
       // update only if youre on a valid target
-      if (target.classList.contains(`${styles.target}`)) {
-        let parent = target.parentElement.closest(`.${styles.target}`);
+      if (target.classList.contains('target')) {
+        let parent = target.parentElement.closest('target');
         if (parent) {
-          parent.classList.remove(`${styles.childHoverActive}`); 
+          parent.classList.remove('no-hover'); 
           break // only show the one closest to the mouse
         }
       }
@@ -38,7 +37,7 @@ export default function Result({ result }) {
 
   const handleClick = (event) => {
     event.stopPropagation();
-    const target = event.target.closest(`.${styles.target}`);
+    const target = event.target.closest('target');
     if (target) {
       replaceSelection(target); // API call with the closest matching element
     }  
@@ -60,7 +59,6 @@ export default function Result({ result }) {
 
   return (
     <div
-      className={styles.result}
       dangerouslySetInnerHTML={{ __html: result }}
       id="resultContainer"
     />

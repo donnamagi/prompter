@@ -1,11 +1,10 @@
 import React from 'react';
-import styles from './Button.module.css';
 
 const Button = ({ title, onClick }) => {
   return (
-    <button onClick={onClick} className={styles.btn}>
-      {title}
-    </button>
+  <button onClick={onClick} className="bg-slate-100 hover:bg-slate-200 p-2 my-3 space-y-4">
+    {title}
+  </button>
   );
 };
 
