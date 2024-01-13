@@ -1,4 +1,3 @@
-import styles from '../pages/components/Result.module.css';
 import { marked } from 'marked';
 
 function generateIdAttribute() {
@@ -15,17 +14,17 @@ export const renderer = {
     const type = ordered ? 'ol' : 'ul';
     const id_att = generateIdAttribute();
 
-    return `<${type}${id_att} class=${styles.target}>\n${body}</${type}>\n`;
+    return `<${type}${id_att} class='target'>\n${body}</${type}>\n`;
   },
 
   // tablerow(content) {
   //   const id_att = generateIdAttribute();
-  //   return `<tr${id_att} class=${styles.target}>\n${content}</tr>\n`;
+  //   return `<tr${id_att} class='target'>\n${content}</tr>\n`;
   // },
 
   paragraph(text) {
     const id_att = generateIdAttribute();
-    return `<p${id_att} class=${styles.target}>${text}</p>\n`;
+    return `<p${id_att} class='target'>${text}</p>\n`;
   }
 };
 
