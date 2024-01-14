@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getTemplateContent } from '../../utils/index.js';
+import Modal from './Modal';
 
 export default function Search({templates, setResult}) {  
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  
+  const [showModal, setShowModal] = useState(false);
+  const [template, setTemplate] = useState(null);
 
   const resultsRef = useRef(searchResults); 
   const indexRef = useRef(selectedIndex);
@@ -17,7 +21,9 @@ export default function Search({templates, setResult}) {
 
   async function getResult(key) {
     const content = await getTemplateContent(key, templates);
-    setResult(content);
+    setTemplate(content);
+    setShowModal(true);
+    // setResult(content);
   }
 
   useEffect(() => {
@@ -85,6 +91,7 @@ export default function Search({templates, setResult}) {
           </li>
         ))}
       </ul>
+      <Modal showModal={showModal} setShowModal={setShowModal} template={template}/>
     </>
   );
 }

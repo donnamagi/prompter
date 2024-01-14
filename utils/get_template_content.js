@@ -18,12 +18,14 @@ export async function getTemplateContent(key, templates) {
       throw data.error || new Error(`Request failed with status ${response.status}`);
     }
 
-    const filled_template = await fillPlaceholders(data);
-    if (filled_template === null) return; // user cancelled
+    return data;
 
-    const api_response = await callAPI(filled_template);
-    const parsed_result = marked.parse(api_response);
-    return parsed_result;
+    // const filled_template = await fillPlaceholders(data);
+    // if (filled_template === null) return; // user cancelled
+
+    // const api_response = await callAPI(filled_template);
+    // const parsed_result = marked.parse(api_response);
+    // return parsed_result;
 
   } catch (err) {
     console.error(err);
