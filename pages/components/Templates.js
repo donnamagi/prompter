@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import SearchBar from './SearchBar';
+import Search from './Search';
 
 export default function Templates({ setResult }) {
   const [templates, setTemplates] = useState({});
@@ -27,7 +27,7 @@ export default function Templates({ setResult }) {
   
   return (
     <>
-      <SearchBar templates={templates} setResult={setResult}/>
+      <Search templates={templates} setResult={setResult}/>
     </>
   )
 }
