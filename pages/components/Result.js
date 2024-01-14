@@ -58,9 +58,15 @@ export default function Result({ result }) {
   }, [result]);
 
   return (
-    <div
-      dangerouslySetInnerHTML={{ __html: result }}
-      id="resultContainer"
-    />
+    <>
+      <div
+        dangerouslySetInnerHTML={{ __html: result }}
+        id="resultContainer"
+      />
+      <div className="justify-center items-center">
+        <Button title="Restart" onClick={restart} />
+        <Button title="Copy" onClick={handleCopy} />
+      </div>
+    </>
   );
 }

@@ -4,9 +4,10 @@ import { getTemplateContent } from '../../utils/index.js';
 export default function Search({templates, setResult}) {  
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const resultsRef = useRef(searchResults); 
+  const indexRef = useRef(selectedIndex);
   const inputRef = useRef(null); 
   resultsRef.current = searchResults; // Updates whenever results changes
 
@@ -33,21 +34,21 @@ export default function Search({templates, setResult}) {
     }
 
     const handleKeyDown = (e) => {
-
       if (e.key === 'Enter') {
-        getResult(resultsRef.current[selectedIndex])
+        inputRef.current.blur();
+        getResult(resultsRef.current[indexRef.current])
       } else if (e.key === 'ArrowDown') {
         inputRef.current.blur();
-        setSelectedIndex(selectedIndex => {
-          if (selectedIndex === resultsRef.current.length - 1) return selectedIndex;
-          const newIndex = selectedIndex + 1;
-          return newIndex;
+        setSelectedIndex(prevIndex => {
+          if (prevIndex === resultsRef.current.length - 1) return prevIndex;
+          indexRef.current = prevIndex + 1;
+          return prevIndex + 1;
         });
       } else if (e.key === 'ArrowUp') {
-        setSelectedIndex(selectedIndex => {
-          if (selectedIndex === 0) return 0;
-          const newIndex = selectedIndex - 1; 
-          return newIndex;
+        setSelectedIndex(prevIndex => {
+          if (prevIndex === 0) return prevIndex;
+          indexRef.current = prevIndex - 1;
+          return prevIndex - 1;
         });
       }
     }

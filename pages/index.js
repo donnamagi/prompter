@@ -41,10 +41,6 @@ export default function Home() {
             <div ref={resultRef}>
               <Result result={result} />
             </div>
-            <div className="justify-center items-center">
-              <Button title="Restart" onClick={restart} />
-              <Button title="Copy" onClick={handleCopy} />
-            </div>
           </>
           :
           <container className='w-2/3 md:w-1/3'>
