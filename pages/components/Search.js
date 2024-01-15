@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getTemplateContent } from '../../utils/index.js';
 import Modal from './Modal';
 
-export default function Search({templates, setResult}) {  
+export default function Search({templates}) {  
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  
+
   const [showModal, setShowModal] = useState(false);
-  const [template, setTemplate] = useState(null);
+  const [template, setTemplate] = useState({});
 
   const resultsRef = useRef(searchResults); 
   const indexRef = useRef(selectedIndex);
@@ -19,11 +18,9 @@ export default function Search({templates, setResult}) {
     setQuery(event.target.value);
   }
 
-  async function getResult(key) {
-    const content = await getTemplateContent(key, templates);
-    setTemplate(content);
+  async function getResult(key) {;
+    setTemplate(templates[key]);
     setShowModal(true);
-    // setResult(content);
   }
 
   useEffect(() => {
@@ -71,16 +68,16 @@ export default function Search({templates, setResult}) {
   return (
     <>
       <form onSubmit={handleSearchChange} className='mt-32 md:mt-48'>
-      <label className="relative block">
-        <input
-          ref={inputRef}
-          className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-          type="text"
-          value={query}
-          onChange={handleSearchChange}
-          placeholder="Search your templates"
-        />
-      </label>
+        <label className="relative block">
+          <input
+            ref={inputRef}
+            className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+            type="text"
+            value={query}
+            onChange={handleSearchChange}
+            placeholder="Search your templates"
+          />
+        </label>
       </form>
       <ul role="list" className="divide-y divide-slate-200 border">
         {resultsRef.current.map((result, index) => (
@@ -91,7 +88,10 @@ export default function Search({templates, setResult}) {
           </li>
         ))}
       </ul>
-      <Modal showModal={showModal} setShowModal={setShowModal} template={template}/>
+      {showModal ? (
+        <Modal setShowModal={setShowModal} template={template} /> 
+        ) : null
+      }
     </>
   );
 }

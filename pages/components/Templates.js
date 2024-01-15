@@ -13,8 +13,7 @@ export default function Templates({ setResult }) {
           throw data.error || new Error(`Request failed with status ${response.status}`);
         }
         const data = await response.json();
-
-        setTemplates(data);
+        return data
 
       } catch (err) {
         console.error(err);
@@ -22,12 +21,34 @@ export default function Templates({ setResult }) {
       }
     };
 
-    fetchTemplates();
+    async function getTemplateContent() {
+      let templates = await fetchTemplates();
+      for (const key in templates) {
+
+        const id = templates[key].id;
+        const response = await fetch('/api/notion/get_content', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id }),
+        });
+
+        const data = await response.json();
+        if (response.status !== 200) {
+          throw data.error || new Error(`Request failed with status ${response.status}`);
+        }
+        templates[key].title = key;
+        templates[key].content = data;
+      }
+      setTemplates(templates);
+      console.log('done with template fetch :)');
+    }
+
+    getTemplateContent();
   }, []);
   
   return (
-    <>
-      <Search templates={templates} setResult={setResult}/>
-    </>
+    <Search templates={templates} setResult={setResult}/>
   )
 }
