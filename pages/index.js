@@ -1,8 +1,5 @@
 import Head from "next/head";
 import { useState, useRef } from "react";
-import Templates from "./components/Templates";
-import Button from "./components/Button";
-import Result from "./components/Result";
 import TurndownService from "turndown";
 import conversation_history from "./api/chat";
 
