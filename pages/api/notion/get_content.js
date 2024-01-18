@@ -9,13 +9,13 @@ export default async function (req, res) {
     page_size: 50,
   });
 
-  var template = ''
+  var template_content = ''
 
   for (const block of response.results) {
     if (block.type === 'paragraph' && block.paragraph.rich_text[0]) {
-      template += block.paragraph.rich_text[0].plain_text;
+      template_content += block.paragraph.rich_text[0].plain_text;
     }
   }
 
-  res.status(200).json(template);
+  res.status(200).json(template_content);
 }

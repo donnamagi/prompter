@@ -5,7 +5,7 @@ const blockID = process.env.NOTION_PAGE_ID;
 
 export default async function (req, res) {
 
-  var templates = {}
+  var templates = []
   const response = await notion.blocks.children.list({
     block_id: blockID,
     page_size: 50,
@@ -14,8 +14,7 @@ export default async function (req, res) {
   for (const block of response.results) {
     if (block.type === 'child_page') {
       const prompt_object = block.child_page
-      templates[prompt_object.title] = {}
-      templates[prompt_object.title]['id'] = block.id;
+      templates.push({title: prompt_object.title, id: block.id});
     }
   }
   res.status(200).json(templates);
