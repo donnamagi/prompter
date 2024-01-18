@@ -2,6 +2,8 @@ import Head from "next/head";
 import { useState, useRef } from "react";
 import TurndownService from "turndown";
 import conversation_history from "./api/chat";
+import Templates from "@/components/Templates";
+import Result from "@/components/Result";
 
 export default function Home() {
   const [result, setResult] = useState();
@@ -32,7 +34,7 @@ export default function Home() {
       <Head>
         <title>Prompt templates</title>
       </Head>
-      <main className="flex justify-center min-h-screen">
+      <main className="flex justify-center items-center min-h-screen bg-white text-black dark:bg-black dark:text-white">
         {result ? 
           <>
             <div ref={resultRef}>
@@ -40,7 +42,7 @@ export default function Home() {
             </div>
           </>
           :
-          <container className='w-2/3 md:w-1/3'>
+          <container className='fixed top-1/3 w-2/3 md:w-1/3'>
             <Templates setResult={setResult} />
           </container>
         }
