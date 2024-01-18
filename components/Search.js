@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FileIcon } from "@radix-ui/react-icons"
+import { FileIcon } from "@radix-ui/react-icons";
  
 import {
   Command,
@@ -11,11 +11,11 @@ import {
   CommandShortcut,
 } from "@/components/ui/command"
 
-export default function Search({templates}) {  
+export default function Search({templates, setResult}) {  
 
   async function getResult(key) {;
     const template = templates[key];
-    console.log(template);
+    setResult(template.content);
   }
 
   React.useEffect(() => {
@@ -23,7 +23,6 @@ export default function Search({templates}) {
       if ((e.metaKey || e.ctrlKey) && !isNaN(e.key) && e.key.length === 1) {
         e.preventDefault(); 
         const key = parseInt(e.key, 10);
-        console.log(key);
         getResult(key);
       }
     };
