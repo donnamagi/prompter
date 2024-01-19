@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react';
+import * as React from 'react';
 import { replaceSelection } from '../utils/index';
 import { Button } from "@/components/ui/button"
 import TurndownService from "turndown"; // convert html to markdown
@@ -46,7 +46,7 @@ export default function Result({ result, setResult }) {
     }  
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const container = document.getElementById('resultContainer');
     container.addEventListener('mouseenter', handleMouseEnter, true); // listening during the capture phase
     container.addEventListener('mouseleave', handleMouseLeave, true);
@@ -62,7 +62,7 @@ export default function Result({ result, setResult }) {
 
   const restart = () => {
     setResult(null);
-    conversation_history.splice(1); // delete the conversation history, system prompt only
+    conversation_history.splice(1); // leaving the system prompt only
   }
 
   const handleCopy = () => {

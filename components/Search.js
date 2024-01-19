@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { FileIcon } from "@radix-ui/react-icons";
+import Modal from '@/components/Modal';
  
 import {
   Command,
@@ -11,11 +12,12 @@ import {
   CommandShortcut,
 } from "@/components/ui/command"
 
-export default function Search({templates, setResult}) {  
+export default function Search({templates}) {  
+  const [chosenTemplate, setChosenTemplate] = React.useState(null);
 
   async function getResult(key) {;
     const template = templates[key];
-    setResult(template.content);
+    setChosenTemplate(template);
   }
 
   React.useEffect(() => {
@@ -48,6 +50,7 @@ export default function Search({templates, setResult}) {
           </CommandGroup>
         </CommandList>
       </Command>
+      <Modal template={chosenTemplate} setTemplate={setChosenTemplate} /> 
     </>
   );
 }
