@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from 'react';
 import Search from './Search';
 
-export default function Templates({ setResult }) {
-  const [templates, setTemplates] = useState([]);
+export default function Templates() {
+  const [templates, setTemplates] = useState(null);
 
   useEffect(() => {
     const fetchTemplates = async () => {
@@ -50,8 +50,8 @@ export default function Templates({ setResult }) {
   
   return (
     <>
-    { (templates.length !== 0) ?
-      <Search templates={templates} setResult={setResult}/> : 'Loading...'
+    { templates ?
+      <Search templates={templates} /> : 'Loading...'
     }
     </>
   )
