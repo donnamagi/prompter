@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { callAPI, replaceSelection } from '../utils/index';
+import { callAPI } from '../utils/index';
 import { Button } from "@/components/ui/button"
+import ChangeBox from '@/components/ChangeBox';
 import {marked} from "marked"; // convert markdown to html
 import TurndownService from "turndown"; // convert html to markdown
 import conversation_history from "../pages/api/chat";
@@ -22,60 +23,6 @@ export default function Result() {
     getResult(template);
   }, []); 
 
-  const handleMouseEnter = (event) => {
-    let target = event.target;
-    while (target) {
-      // update only if youre on a valid target
-      if (target.classList.contains('target')) {
-        // hide the hovered div(s) below
-        let parent = target.parentElement.closest('target');
-        if (parent) {
-          parent.classList.add('no-hover'); 
-        }
-
-      }
-      target = target.parentElement;
-    }
-  }
-
-  const handleMouseLeave = (event) => {
-    let target = event.target;
-    while (target) {
-      // update only if youre on a valid target
-      if (target.classList.contains('target')) {
-        let parent = target.parentElement.closest('target');
-        if (parent) {
-          parent.classList.remove('no-hover'); 
-          break // only show the one closest to the mouse
-        }
-      }
-      // check next parent
-      target = target.parentElement;
-    }
-  };
-
-  const handleClick = (event) => {
-    event.stopPropagation();
-    const target = event.target.closest('target');
-    if (target) {
-      replaceSelection(target); // API call with the closest matching element
-    }  
-  }
-
-  // React.useEffect(() => {
-  //   const container = document.getElementById('resultContainer');
-  //   container.addEventListener('mouseenter', handleMouseEnter, true); // listening during the capture phase
-  //   container.addEventListener('mouseleave', handleMouseLeave, true);
-  //   container.addEventListener('click', handleClick, true);
-
-  //   // cleanup 
-  //   return () => {
-  //     container.removeEventListener('mouseenter', handleMouseEnter, true);
-  //     container.removeEventListener('mouseleave', handleMouseLeave, true);
-  //     container.removeEventListener('click', handleClick, true);
-  //   };
-  // }, [result]);
-
   const restart = () => {
     setCurrentScreen('search');
     setTemplate(null);
@@ -96,15 +43,12 @@ export default function Result() {
   };
 
   return (
-    <>
-      <div
-        dangerouslySetInnerHTML={{ __html: result }}
-        id="resultContainer"
-      />
+    <container className='fixed pt-30 px-10 w-full lg:w-2/3'>
+      <ChangeBox result={result} />
       <div className="flex justify-between mt-4">
         <Button variant='outline' onClick={restart}>Restart</Button>
         <Button onClick={copy}>Copy</Button>
       </div>
-    </>
+    </container>
   );
 }

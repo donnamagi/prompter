@@ -18,7 +18,7 @@ export default function Overview() {
   }
 
   return (
-    <>
+    <container className='fixed top-1/3 w-2/3 lg:w-1/3'>
       <div className="grid w-full gap-1.5">
         <Label htmlFor="message-2">{template.title}</Label>
         <Textarea placeholder="Type your message here." id="message-2" defaultValue={template.content} className='min-h-[300px]' />
@@ -30,6 +30,6 @@ export default function Overview() {
         <Button variant='outline' onClick={() => back()}>Back</Button>
         <Button onClick={() => forward()}>Next</Button>
       </div>
-    </>
+    </container>
   )
 }

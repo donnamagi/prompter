@@ -34,7 +34,7 @@ export default function Search({templates}) {
   }, [])
 
   return (
-    <>
+    <container className='fixed top-1/3 w-2/3 lg:w-1/3'>
       <Command className="rounded-lg border shadow-md">
         <CommandInput placeholder="Search your templates" />
         <CommandList>
@@ -50,6 +50,6 @@ export default function Search({templates}) {
           </CommandGroup>
         </CommandList>
       </Command>
-    </>
+    </container>
   );
 }

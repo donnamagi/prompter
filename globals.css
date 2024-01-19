@@ -1,4 +1,98 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@layer base {
+  .layout { 
+    max-width: 68.75rem;
+    @apply mx-auto w-11/12;
+  }
+
+  body {
+    @apply text-sm md:text-base;
+  }
+
+  h1 {
+    @apply text-2xl font-bold md:text-4xl;
+  }
+ 
+  h2 {
+    @apply text-xl font-bold md:text-3xl;
+  }
+ 
+  h3 {
+    @apply text-lg font-bold md:text-2xl;
+  }
+ 
+  h4 {
+    @apply text-base font-bold md:text-lg;
+  }
+
+  h5 {
+    @apply text-sm font-bold md:text-base;
+  }
+
+  h6 {
+    @apply text-xs font-bold md:text-sm;
+  }
+
+  p {
+    @apply text-sm leading-relaxed md:text-base;
+  }
+
+  a {
+    @apply text-blue-500 hover:text-blue-700;
+  }
+  
+  ul {
+    @apply list-disc mb-4;
+  }
+
+  ol {
+    @apply list-decimal mb-4;
+  }
+
+  li {
+    @apply list-item mb-2;
+  }
+
+  blockquote {
+    @apply p-4 italic border-l-4 bg-zinc-100 text-zinc-600 border-zinc-500;
+  }
+
+  code {
+    @apply font-mono bg-zinc-100 p-1 rounded;
+  }
+
+  pre {
+    @apply bg-zinc-100 p-4 rounded;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  table {
+    @apply min-w-full divide-y divide-zinc-200;
+  }
+
+  thead {
+    @apply bg-zinc-50;
+  }
+
+  tbody {
+    @apply bg-white divide-y divide-zinc-200;
+  }
+
+  th, td {
+    @apply px-6 py-4 text-left text-xs font-medium text-zinc-500 uppercase tracking-wider;
+  } 
+}
+
+.target {
+  @apply rounded-md p-2 transition duration-100 ease-in-out cursor-pointer hover:outline hover:outline-1 hover:outline-zinc-400 dark:hover:outline-zinc-600
+}
+
+.no-hover {
+  @apply hover:outline-none 
+}

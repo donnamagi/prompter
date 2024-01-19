@@ -27,10 +27,8 @@ export default function Home() {
       <Head>
         <title>Prompt templates</title>
       </Head>
-      <main className="flex justify-center items-center min-h-screen bg-white text-black dark:bg-black dark:text-white">
-        <container className='fixed top-1/3 w-2/3 lg:w-1/3'>
+      <main className="layout flex justify-center items-center min-h-screen bg-white text-black dark:bg-black dark:text-white">
           {renderScreen()}
-        </container>
       </main>
     </div>
   );
