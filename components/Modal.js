@@ -14,20 +14,18 @@ import { Label } from "@/components/ui/label"
 
 import { StateContext } from '@/lib/context/StateContext';
 
-export default function Modal({template, setTemplate}) {
+export default function Modal() {
+  const { setCurrentScreen, template, setTemplate } = React.useContext(StateContext);
   if (!template) return null;
-  const { currentScreen, setCurrentScreen } = React.useContext(StateContext);
-
-  let placeholders = [];
-  if (template) {
-    placeholders = extractPlaceholders(template.content);
-  }
-
-  function extractPlaceholders(template) {
+  
+  const extractPlaceholders = (content) => {
     const regex = /\{([^\}]+)\}/g; // finds all {placeholders}
-    let placeholders = template.match(regex) || [];
+    let placeholders = content.match(regex) || [];
     return placeholders.map(p => p.replace(/[{}]/g, '')); 
   }
+
+  if (!template.content) return null;
+  const placeholders = extractPlaceholders(template.content);
 
   const setData = () => {
     const inputs = document.getElementById('form').querySelectorAll('input');
@@ -37,12 +35,11 @@ export default function Modal({template, setTemplate}) {
     });
 
     const finalTemplate = replacePlaceholders(template, data);
-    console.log(finalTemplate);
-    console.log(currentScreen);
-    setCurrentScreen('result');
+    setCurrentScreen('overview');
+    setTemplate({ ...template, content: finalTemplate });
   }
 
-  function replacePlaceholders(template, data) {
+  const replacePlaceholders = (template, data) => {
     let newState = template.content;
 
     for (const [key, value] of data.entries()) {
@@ -52,7 +49,7 @@ export default function Modal({template, setTemplate}) {
     return newState;
   }
 
-  function handleOpenChange(open) {
+  const handleOpenChange = (open) => {
     if (!open) {
       setTemplate(null);
     }

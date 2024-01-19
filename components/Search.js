@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FileIcon } from "@radix-ui/react-icons";
-import Modal from '@/components/Modal';
+
+import { StateContext } from '@/lib/context/StateContext';
  
 import {
   Command,
@@ -13,11 +14,10 @@ import {
 } from "@/components/ui/command"
 
 export default function Search({templates}) {  
-  const [chosenTemplate, setChosenTemplate] = React.useState(null);
+  const { setTemplate } = React.useContext(StateContext);
 
   async function getResult(key) {;
-    const template = templates[key];
-    setChosenTemplate(template);
+    setTemplate(templates[key]);
   }
 
   React.useEffect(() => {
@@ -50,7 +50,6 @@ export default function Search({templates}) {
           </CommandGroup>
         </CommandList>
       </Command>
-      <Modal template={chosenTemplate} setTemplate={setChosenTemplate} /> 
     </>
   );
 }

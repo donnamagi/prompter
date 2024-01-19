@@ -3,15 +3,18 @@ import Head from 'next/head';
 import { StateContext } from '@/lib/context/StateContext';
 
 import Templates from '@/components/Templates';
+import Overview from '@/components/Overview';
 import Result from '@/components/Result';
 
 export default function Home() {
-  const { currentScreen, setCurrentScreen } = useContext(StateContext);
+  const { currentScreen, template } = useContext(StateContext);
 
   const renderScreen = () => {
     switch (currentScreen) {
       case 'search':
         return <Templates />;
+      case 'overview':
+        return <Overview template = {template} />;
       case 'result':
         return  <Result />;
       default:
@@ -25,7 +28,7 @@ export default function Home() {
         <title>Prompt templates</title>
       </Head>
       <main className="flex justify-center items-center min-h-screen bg-white text-black dark:bg-black dark:text-white">
-        <container className='fixed top-1/3 w-2/3 md:w-1/3'>
+        <container className='fixed top-1/3 w-2/3 lg:w-1/3'>
           {renderScreen()}
         </container>
       </main>

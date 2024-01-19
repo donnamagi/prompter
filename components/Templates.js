@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import Search from './Search';
+import Modal from './Modal';
 
 export default function Templates() {
   const [templates, setTemplates] = useState(null);
@@ -50,9 +51,8 @@ export default function Templates() {
   
   return (
     <>
-    { templates ?
-      <Search templates={templates} /> : 'Loading...'
-    }
+    { templates ? <Search templates={templates} /> : 'Loading...' }
+    <Modal /> 
     </>
   )
 }
