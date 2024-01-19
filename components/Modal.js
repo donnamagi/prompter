@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -11,8 +12,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+import { StateContext } from '@/lib/context/StateContext';
+
 export default function Modal({template, setTemplate}) {
   if (!template) return null;
+  const { currentScreen, setCurrentScreen } = React.useContext(StateContext);
 
   let placeholders = [];
   if (template) {
@@ -34,6 +38,8 @@ export default function Modal({template, setTemplate}) {
 
     const finalTemplate = replacePlaceholders(template, data);
     console.log(finalTemplate);
+    console.log(currentScreen);
+    setCurrentScreen('result');
   }
 
   function replacePlaceholders(template, data) {
