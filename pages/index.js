@@ -7,14 +7,14 @@ import Overview from '@/components/Overview';
 import Result from '@/components/Result';
 
 export default function Home() {
-  const { currentScreen, template } = useContext(StateContext);
+  const { currentScreen } = useContext(StateContext);
 
   const renderScreen = () => {
     switch (currentScreen) {
       case 'search':
         return <Templates />;
       case 'overview':
-        return <Overview template = {template} />;
+        return <Overview />;
       case 'result':
         return  <Result />;
       default:
