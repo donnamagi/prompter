@@ -21,7 +21,7 @@ export default function Overview() {
     <>
       <div className="grid w-full gap-1.5">
         <Label htmlFor="message-2">{template.title}</Label>
-        <Textarea placeholder="Type your message here." id="message-2" value={template.content} className='min-h-[300px]' />
+        <Textarea placeholder="Type your message here." id="message-2" defaultValue={template.content} className='min-h-[300px]' />
         <p className="text-sm text-muted-foreground">
           This is the prompt you're forwarding to OpenAI.
         </p>

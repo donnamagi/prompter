@@ -1,10 +1,26 @@
 import * as React from 'react';
-import { replaceSelection } from '../utils/index';
+import { callAPI, replaceSelection } from '../utils/index';
 import { Button } from "@/components/ui/button"
+import {marked} from "marked"; // convert markdown to html
 import TurndownService from "turndown"; // convert html to markdown
 import conversation_history from "../pages/api/chat";
 
-export default function Result({ result, setResult }) {
+import { StateContext } from '@/lib/context/StateContext';
+
+export default function Result() {
+  const [result, setResult] = React.useState(null);
+  const { template, setTemplate, setCurrentScreen } = React.useContext(StateContext);
+
+  const getResult = async (template) => {
+    const response = await callAPI(template.content);
+    const html = marked.parse(response);
+    setResult(html);
+  }
+
+  React.useEffect(() => {
+    if (!template) return;
+    getResult(template);
+  }, []); 
 
   const handleMouseEnter = (event) => {
     let target = event.target;
@@ -46,26 +62,27 @@ export default function Result({ result, setResult }) {
     }  
   }
 
-  React.useEffect(() => {
-    const container = document.getElementById('resultContainer');
-    container.addEventListener('mouseenter', handleMouseEnter, true); // listening during the capture phase
-    container.addEventListener('mouseleave', handleMouseLeave, true);
-    container.addEventListener('click', handleClick, true);
+  // React.useEffect(() => {
+  //   const container = document.getElementById('resultContainer');
+  //   container.addEventListener('mouseenter', handleMouseEnter, true); // listening during the capture phase
+  //   container.addEventListener('mouseleave', handleMouseLeave, true);
+  //   container.addEventListener('click', handleClick, true);
 
-    // cleanup 
-    return () => {
-      container.removeEventListener('mouseenter', handleMouseEnter, true);
-      container.removeEventListener('mouseleave', handleMouseLeave, true);
-      container.removeEventListener('click', handleClick, true);
-    };
-  }, [result]);
+  //   // cleanup 
+  //   return () => {
+  //     container.removeEventListener('mouseenter', handleMouseEnter, true);
+  //     container.removeEventListener('mouseleave', handleMouseLeave, true);
+  //     container.removeEventListener('click', handleClick, true);
+  //   };
+  // }, [result]);
 
   const restart = () => {
-    setResult(null);
+    setCurrentScreen('search');
+    setTemplate(null);
     conversation_history.splice(1); // leaving the system prompt only
   }
 
-  const handleCopy = () => {
+  const copy = () => {
     var turndownService = new TurndownService()
     const html = result.innerHTML;
     var markdown = turndownService.turndown(html);
@@ -84,9 +101,9 @@ export default function Result({ result, setResult }) {
         dangerouslySetInnerHTML={{ __html: result }}
         id="resultContainer"
       />
-      <div className="fixed left-44">
-        <Button onClick={restart}>Restart</Button>
-        <Button onClick={handleCopy}>Copy</Button>
+      <div className="flex justify-between mt-4">
+        <Button variant='outline' onClick={restart}>Restart</Button>
+        <Button onClick={copy}>Copy</Button>
       </div>
     </>
   );
