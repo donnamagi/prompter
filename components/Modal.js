@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from "@/components/ui/button"
+import { TitledTextArea, TitledInput, DateRange, ProjectPicker } from '@/components/Fields';
 import {
   Dialog,
   DialogContent,
@@ -8,9 +9,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 import { StateContext } from '@/lib/context/StateContext';
 
@@ -54,30 +52,34 @@ export default function Modal() {
       setTemplate(null);
     }
   }
+
+  const renderPlaceholders = () => {
+    return placeholders.map((placeholder, index) => {
+      if (placeholder === 'project') {
+        return <ProjectPicker key={index} placeholder={placeholder} id='input' />;
+      }
+      if (placeholder === 'description') {
+        return <TitledTextArea key={index} placeholder={placeholder} id='input' className='dark:text-white'/>;
+      }
+      if (placeholder === 'date') {
+        return <DateRange key={index} placeholder={placeholder} id='input' className='dark:text-white'/>
+      }
+      return <TitledInput key={index} placeholder={placeholder} className='dark:text-white'/>;
+    });
+  }
   
   return (
     <>
       <Dialog defaultOpen onOpenChange={handleOpenChange}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>{template.title}</DialogTitle>
+            <DialogTitle className='dark:text-white'>{template.title}</DialogTitle>
             <DialogDescription>
               Enter variables. 'Next' to see the full prompt.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4" id="form">
-            {placeholders.map((placeholder, index) => (
-              <>
-                <div className="grid grid-cols-4 items-center">
-                  <Label htmlFor={placeholder} className="text-left text-black dark:text-white">
-                    {placeholder} 
-                  </Label>
-                </div>
-                <div className="grid items-center gap-4">
-                  <Input key={index} id={placeholder} className="col-span-3 text-black dark:text-white" />
-                </div>
-              </>
-            ))}
+            {renderPlaceholders()}
           </div>
           <DialogFooter>
             <Button type="submit" onClick={setData}>Next</Button>
