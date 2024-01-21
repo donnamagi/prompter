@@ -26,9 +26,12 @@ export default function Modal() {
   const placeholders = extractPlaceholders(template.content);
 
   const setData = () => {
-    const inputs = document.getElementById('form').querySelectorAll('input');
+    const inputs = document.getElementById('form').querySelectorAll(placeholders.map(p => `#${p}`));
     const data = new FormData();
     inputs.forEach(input => {
+      if (!input.value && input.dataset.value) {
+        return data.append(input.id, input.dataset.value);
+      }
       data.append(input.id, input.value);
     });
 
@@ -56,13 +59,13 @@ export default function Modal() {
   const renderPlaceholders = () => {
     return placeholders.map((placeholder, index) => {
       if (placeholder === 'project') {
-        return <ProjectPicker key={index} placeholder={placeholder} id='input' />;
+        return <ProjectPicker placeholder= {placeholder} />;
       }
       if (placeholder === 'description') {
-        return <TitledTextArea key={index} placeholder={placeholder} id='input' className='dark:text-white'/>;
+        return <TitledTextArea key={index} placeholder={placeholder} className='dark:text-white'/>;
       }
       if (placeholder === 'date') {
-        return <DateRange key={index} placeholder={placeholder} id='input' className='dark:text-white'/>
+        return <DateRange key={index} placeholder={placeholder} className='dark:text-white'/>
       }
       return <TitledInput key={index} placeholder={placeholder} className='dark:text-white'/>;
     });

@@ -43,22 +43,17 @@ export function TitledTextArea ({ placeholder, index }) {
 
 export function DateRange({index, placeholder, className}) {
   const [date, setDate] = React.useState({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2024, 0, 20), 20),
+    from: new Date(),
+    to: addDays(new Date(), 20),
   })
 
-  const range = {
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2024, 0, 20), 20),
-  }
-
-
   return (
-    <div id={placeholder} key={index} className={cn("grid gap-2", className)}>
+    <div key={index} className={cn("grid gap-2", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            id="date"
+            id= {placeholder}
+            value={format(date.from, "LLL dd, y") + " - " + format(date.to, "LLL dd, y")}
             variant={"outline"}
             className={cn(
               "w-full justify-start text-left font-normal",
@@ -95,7 +90,8 @@ export function DateRange({index, placeholder, className}) {
   )
 }
 
-export function ProjectPicker() {
+export function ProjectPicker({placeholder}) {
+  const [project, setProject] = React.useState();
 
   const magicads = `
   MagicAds is a web application that provides a simple solution to the complex and costly process of creating 
@@ -120,14 +116,14 @@ export function ProjectPicker() {
 
   return (
     <div className="grid gap-2">
-      <Select className="w-full">
-        <SelectTrigger className="w-full dark:text-white">
-          <SelectValue placeholder='Select your project' />
+      <Select className="w-full" onValueChange={(value) => setProject(value)} >
+        <SelectTrigger className="w-full dark:text-white truncate">
+          <SelectValue placeholder='Select your project' id={placeholder} data-value={project}/>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             {projects.map(([project, description], index) => (
-              <SelectItem key={index} value={description}>
+              <SelectItem key={index} value={description} >
                 {project}
               </SelectItem>
             ))}
