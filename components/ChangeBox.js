@@ -60,6 +60,7 @@ export default function ChangeBox({result}) {
   return (
     <div
     dangerouslySetInnerHTML={{ __html: result }}
+    className="dark:text-zinc-300"
     id="resultContainer"
   />
   )

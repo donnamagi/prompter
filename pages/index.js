@@ -27,7 +27,7 @@ export default function Home() {
       <Head>
         <title>Prompt templates</title>
       </Head>
-      <main className="layout flex justify-center items-center min-h-screen bg-white text-black dark:bg-black dark:text-white">
+      <main className="flex justify-center items-center min-h-screen">
           {renderScreen()}
       </main>
     </div>

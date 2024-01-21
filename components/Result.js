@@ -41,7 +41,7 @@ const Result = () => {
   };
 
   return (
-    <div className='fixed pt-30 px-10 w-full lg:w-2/3'>
+    <div className='fixed px-10 py-10 w-full lg:w-2/3 max-h-screen overflow-y-auto'>
       <ChangeBox result={result} />
       <div className="flex justify-between mt-4">
         <Button variant='outline' onClick={restart}>Restart</Button>

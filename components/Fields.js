@@ -41,34 +41,35 @@ export function TitledTextArea ({ placeholder, index }) {
   )
 }
 
-export function DateRange({index, placeholder, className}) {
+export function DateRange({ index, placeholder, className }) {
   const [date, setDate] = React.useState({
     from: new Date(),
     to: addDays(new Date(), 20),
-  })
+  });
+
+  const formatDate = (date) => format(date, "MMM d, yyyy");
 
   return (
     <div key={index} className={cn("grid gap-2", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            id= {placeholder}
-            value={format(date.from, "LLL dd, y") + " - " + format(date.to, "LLL dd, y")}
+            id={placeholder}
+            value={(date?.from ? formatDate(date.from) : '') + " - " + (date?.to ? formatDate(date.to) : '')}
             variant={"outline"}
             className={cn(
               "w-full justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              !(date && date.from) && "text-muted-foreground"
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
+                  {formatDate(date.from)} - {formatDate(date.to)}
                 </>
               ) : (
-                format(date.from, "LLL dd, y")
+                formatDate(date.from)
               )
             ) : (
               <span>Pick a date</span>
