@@ -21,7 +21,7 @@ const Result = () => {
     }
 
     getResult();
-  }, [template]); // added template as a dependency
+  }, [template]);
 
   const restart = () => {
     setCurrentScreen('search');
