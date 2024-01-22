@@ -1,4 +1,4 @@
-import {React, useContext, useEffect} from 'react';
+import {React, useContext} from 'react';
 import { FileIcon } from "@radix-ui/react-icons";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -11,7 +11,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandShortcut,
 } from "@/components/ui/command"
 
 export default function Search({templates}) {  
@@ -22,7 +21,6 @@ export default function Search({templates}) {
       <CommandItem key={index} onSelect={() => getResult(index)}>
         <FileIcon className="mr-2 h-4 w-4" />
         <span> {template.title} </span>
-        <CommandShortcut>⌘{index}</CommandShortcut>
       </CommandItem>
     ));
   };
@@ -40,19 +38,6 @@ export default function Search({templates}) {
   const getResult = (key) => {;
     setTemplate(templates[key]);
   }
-
-  useEffect(() => {
-    const down = (e) => {
-      if ((e.metaKey || e.ctrlKey) && !isNaN(e.key) && e.key.length === 1) {
-        e.preventDefault(); 
-        const key = parseInt(e.key, 10);
-        getResult(key);
-      }
-    };
- 
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [templates])
 
   return (
     <container className='fixed top-1/3 w-2/3 lg:w-1/3'>
