@@ -24,7 +24,6 @@ export default function Templates() {
 
   const getTemplateContent = async () => {
     let templates = await fetchTemplates();
-    setTemplates(templates);
     
     for (const key in templates) {
       const id = templates[key].id;
@@ -58,7 +57,7 @@ export default function Templates() {
   
   return (
     <>
-    { templates ? <Search templates={templates} /> : null }
+    <Search templates= {templates} /> 
     <Modal /> 
     <Toaster richColors />
     </>
