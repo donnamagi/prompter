@@ -1,7 +1,7 @@
 import * as React from "react"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { addDays, format, set } from "date-fns"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/index"
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
