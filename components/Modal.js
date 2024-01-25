@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Button } from "@/components/ui/button"
+import {React, useContext} from 'react';
+import { Button } from "@/ui/button"
 import { TitledTextArea, TitledInput, DateRange, ProjectPicker } from '@/components/Fields';
 import {
   Dialog,
@@ -8,12 +8,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/ui/dialog"
 
-import { StateContext } from '@/lib/context/StateContext';
+import { StateContext } from '@/context/StateContext';
 
 export default function Modal() {
-  const { setCurrentScreen, template, setTemplate } = React.useContext(StateContext);
+  const { setCurrentScreen, template, setTemplate } = useContext(StateContext);
   if (!template) return null;
   
   const extractPlaceholders = (content) => {

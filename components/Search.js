@@ -1,8 +1,8 @@
 import {React, useContext} from 'react';
 import { FileIcon } from "@radix-ui/react-icons";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/ui/skeleton";
 
-import { StateContext } from '@/lib/context/StateContext';
+import { StateContext } from '@/context/StateContext';
  
 import {
   Command,

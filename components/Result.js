@@ -1,11 +1,11 @@
 import {React, useState, useContext, useEffect } from 'react';
-import { callAPI } from '../lib/utils';
-import { Button } from "@/components/ui/button";
+import { callAPI } from '@/utils/index';
+import { Button } from "@/ui/button";
 import ChangeBox from '@/components/ChangeBox';
 import { marked } from "marked";
 import TurndownService from "turndown";
-import conversation_history from "../pages/api/chat";
-import { StateContext } from '@/lib/context/StateContext';
+import conversation_history from "@/api/chat";
+import { StateContext } from '@/context/StateContext';
 
 const Result = () => {
   const [result, setResult] = useState(null);

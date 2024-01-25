@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import Head from 'next/head';
-import { StateContext } from '@/lib/context/StateContext';
+import { StateContext } from 'lib/context/StateContext';
 
-import Templates from '@/components/Templates';
-import Overview from '@/components/Overview';
-import Result from '@/components/Result';
+import Templates from 'components/Templates';
+import Overview from 'components/Overview';
+import Result from 'components/Result';
 
 export default function Home() {
   const { currentScreen } = useContext(StateContext);

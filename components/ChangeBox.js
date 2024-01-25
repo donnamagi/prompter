@@ -1,5 +1,5 @@
 import {React, useEffect} from "react"
-import { replaceSelection } from '@/lib/utils/index';
+import { replaceSelection } from '@/utils/index';
 
 export default function ChangeBox({result}) {
 

@@ -1,15 +1,15 @@
-import * as React from "react"
+import { React, useState } from "react"
 import { CalendarIcon } from "@radix-ui/react-icons"
-import { addDays, format, set } from "date-fns"
-import { cn } from "@/lib/utils/index"
+import { addDays, format } from "date-fns"
+import { cn } from "@/utils/index"
 
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Label } from "@/ui/label"
+import { Textarea } from '@/ui/textarea';
+import { Button } from "@/ui/button"
+import { Calendar } from "@/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/ui/select"
 
 export function TitledInput ({ placeholder, index }) {
   return (
@@ -42,7 +42,7 @@ export function TitledTextArea ({ placeholder, index }) {
 }
 
 export function DateRange({ index, placeholder, className }) {
-  const [date, setDate] = React.useState({
+  const [date, setDate] = useState({
     from: new Date(),
     to: addDays(new Date(), 20),
   });
@@ -92,7 +92,7 @@ export function DateRange({ index, placeholder, className }) {
 }
 
 export function ProjectPicker({placeholder}) {
-  const [project, setProject] = React.useState();
+  const [project, setProject] = useState();
 
   const magicads = `
   MagicAds is a web application that provides a simple solution to the complex and costly process of creating 
@@ -102,17 +102,17 @@ export function ProjectPicker({placeholder}) {
   has following screens (besides our landing page): Sign-up, Onboarding, Dashboard, Video create screen, Paywall, Profile. 
   The user can automatically download the video in the dashboard. We use Stripe for Payment progressing.`
 
-  const link = `
-  Link is a web application that provides a simple solution to the complex and costly process of creating
-  UGC ads - by generating AI avatar-based, human-like UGC ads with just an URL for App store, Play store or
-  Websites, we offer unlimited, high-performing UGC ads at your fingertips. Generating a video ad takes between
-  5 and 60 minutes. Every video exists out of 4 scenes: Hook, Build-up, Outcome, and Call to Action. The web-application
-  has following screens (besides our landing page): Sign-up, Onboarding, Dashboard, Video create screen, Paywall, Profile.
-  The user can automatically download the video in the dashboard. We use Stripe for Payment progressing.`
+  const bcause = `
+  bcause offers a platform for easy and smart philanthropy, allowing users to start their own foundation funds within a 
+  communal trust foundation. Users can support their favorite non-profit organizations, invest in social enterprises and 
+  impact funds, and grow their contributions through returns, all without the need for notaries, lawyers, or high initial 
+  costs. The platform provides options for public visibility of users' philanthropic activities and offers various membership 
+  models for different levels of engagement.
+  `
 
   const projects = Object.entries({
     'MagicAds': magicads,
-    'Link': link
+    'bcause': bcause
   });
 
   return (
