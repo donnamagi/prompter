@@ -1,7 +1,7 @@
 import {React, useEffect} from "react"
 import { replaceSelection } from '@/utils/index';
 
-export default function ChangeBox({result}) {
+export default function ChangeBox({result, setResult}) {
 
   const handleMouseEnter = (event) => {
     let target = event.target;
@@ -35,11 +35,13 @@ export default function ChangeBox({result}) {
   };
   
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     event.stopPropagation();
     const target = event.target.closest('.target');
     if (target) {
-      replaceSelection(target); // API call with the closest matching element
+      await replaceSelection(target); // API call with the closest matching element
+      const html = document.getElementById('resultContainer').innerHTML;
+      setResult(html);
     }  
   }
 
