@@ -71,7 +71,7 @@ export default function Modal() {
           <DialogHeader>
             <DialogTitle className='dark:text-zinc-300'>{template.title}</DialogTitle>
             <DialogDescription>
-              Enter variables. 'Next' to see the full prompt.
+              Enter variables. 'Next' to send to OpenAI.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4" id="form">
