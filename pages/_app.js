@@ -1,6 +1,6 @@
 import '../globals.css'
 import Home from './index'
-import { StateProvider } from '@/lib/context/StateContext';
+import { StateProvider } from '@/context/StateContext';
 
  
 export default function MyApp() {

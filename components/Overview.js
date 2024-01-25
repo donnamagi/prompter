@@ -4,7 +4,7 @@ import { Textarea } from "@/ui/textarea"
 import { Button } from "@/ui/button"
 import { PaperPlaneIcon, ResetIcon } from "@radix-ui/react-icons"
 
-import { StateContext } from '@/lib/context/StateContext';
+import { StateContext } from '@/context/StateContext';
 
 export default function Overview() {
   const { template, setCurrentScreen, setTemplate } = useContext(StateContext);

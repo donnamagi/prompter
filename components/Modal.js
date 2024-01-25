@@ -12,19 +12,11 @@ import {
 import { FileTextIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
 
 import { StateContext } from '@/context/StateContext';
-import { callAPI } from '@/utils/call_api';
+import { extractPlaceholders, replacePlaceholders } from '@/utils/index';
 
 export default function Modal() {
   const { setCurrentScreen, template, setTemplate } = useContext(StateContext);
   if (!template) return null;
-  
-  const extractPlaceholders = (content) => {
-    const regex = /\{([^\}]+)\}/g; // finds all {placeholders}
-    let placeholders = content.match(regex) || [];
-    return placeholders.map(p => p.replace(/[{}]/g, '')); 
-  }
-
-  if (!template.content) return null;
   const placeholders = extractPlaceholders(template.content);
 
   const setData = () => {
@@ -48,18 +40,7 @@ export default function Modal() {
 
   const sendDirect = () => {
     setData();
-    callAPI(template.content);
     setCurrentScreen('result');
-  }
-
-  const replacePlaceholders = (template, data) => {
-    let newState = template.content;
-
-    for (const [key, value] of data.entries()) {
-      newState = newState.replace(`{${key}}`, value);
-    }
-  
-    return newState;
   }
 
   const handleOpenChange = (open) => {
@@ -68,7 +49,7 @@ export default function Modal() {
     }
   }
 
-  const renderPlaceholders = () => {
+  const renderFields = () => {
     return placeholders.map((placeholder, index) => {
       if (placeholder === 'project') {
         return <ProjectPicker placeholder= {placeholder} />;
@@ -94,7 +75,7 @@ export default function Modal() {
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4" id="form">
-            {renderPlaceholders()}
+            {renderFields()}
           </div>
           <DialogFooter>
             <Button variant='outline' onClick={showFullPrompt}> <FileTextIcon /> </Button>
