@@ -6,9 +6,11 @@ import { marked } from "marked";
 import TurndownService from "turndown";
 import conversation_history from "@/api/chat";
 import { StateContext } from '@/context/StateContext';
+import { ResetIcon, ClipboardIcon, CheckIcon } from '@radix-ui/react-icons';
 
 const Result = () => {
   const [result, setResult] = useState(null);
+  const [copySuccess, setCopySuccess] = useState(false);
   const { template, setTemplate, setCurrentScreen } = useContext(StateContext);
 
   useEffect(() => {
@@ -36,16 +38,20 @@ const Result = () => {
     const markdown = turndownService.turndown(result);
 
     navigator.clipboard.writeText(markdown)
-      .then(() => console.log("Copied to clipboard"))
+      .then(() => setCopySuccess(true))
       .catch(error => console.error("Failed to copy to clipboard:", error));
   };
 
   return (
     <div className='fixed px-10 py-10 w-full lg:w-2/3 max-h-screen overflow-y-auto'>
       <ChangeBox result={result} setResult={setResult} />
-      <div className="flex justify-between mt-4">
-        <Button variant='outline' onClick={restart}>Restart</Button>
-        <Button onClick={copy}>Copy</Button>
+      <div className="flex justify-center mt-4">
+        <Button variant='outline' className="me-2" onClick={restart}> 
+          <ResetIcon/>
+        </Button>
+        <Button onClick={copy}>
+          { copySuccess ? <CheckIcon/> : <ClipboardIcon />}
+        </Button>
       </div>
     </div>
   );

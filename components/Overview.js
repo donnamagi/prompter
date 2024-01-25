@@ -2,6 +2,7 @@ import {useContext, React} from "react"
 import { Label } from "@/ui/label"
 import { Textarea } from "@/ui/textarea"
 import { Button } from "@/ui/button"
+import { PaperPlaneIcon, ResetIcon } from "@radix-ui/react-icons"
 
 import { StateContext } from '@/lib/context/StateContext';
 
@@ -27,8 +28,12 @@ export default function Overview() {
         </p>
       </div>
       <div className="flex justify-between mt-4">
-        <Button variant='outline' onClick={() => back()}>Back</Button>
-        <Button onClick={() => forward()}>Next</Button>
+        <Button variant='outline' onClick={() => back()}>
+          <ResetIcon/>
+        </Button>
+        <Button onClick={() => forward()}>
+          <PaperPlaneIcon />
+        </Button>
       </div>
     </container>
   )
