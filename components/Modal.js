@@ -9,8 +9,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/ui/dialog"
+import { FileTextIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
 
 import { StateContext } from '@/context/StateContext';
+import { callAPI } from '@/utils/call_api';
 
 export default function Modal() {
   const { setCurrentScreen, template, setTemplate } = useContext(StateContext);
@@ -36,8 +38,18 @@ export default function Modal() {
     });
 
     const finalTemplate = replacePlaceholders(template, data);
-    setCurrentScreen('overview');
     setTemplate({ ...template, content: finalTemplate });
+  }
+
+  const showFullPrompt = () => {
+    setData();
+    setCurrentScreen('overview');
+  }
+
+  const sendDirect = () => {
+    setData();
+    callAPI(template.content);
+    setCurrentScreen('result');
   }
 
   const replacePlaceholders = (template, data) => {
@@ -85,7 +97,8 @@ export default function Modal() {
             {renderPlaceholders()}
           </div>
           <DialogFooter>
-            <Button type="submit" onClick={setData}>Next</Button>
+            <Button variant='outline' onClick={showFullPrompt}> <FileTextIcon /> </Button>
+            <Button onClick={sendDirect}> <PaperPlaneIcon /> </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
