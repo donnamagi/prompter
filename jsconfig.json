@@ -6,8 +6,7 @@
       "@/components/*": ["components/*"],
       "@/ui/*": ["components/ui/*"],
       "@/utils/*": ["lib/utils/*"],
-      "@/context/*": ["lib/context/*"],
-      "@/api/*": ["pages/api/*"],
+      "@/context/*": ["lib/context/*"]
     }
   },
   "exclude": ["node_modules"]
