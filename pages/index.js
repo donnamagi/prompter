@@ -25,7 +25,7 @@ export default function Home() {
 
   const fetchTemplates = async () => {
     try {
-      const response = await fetch('prompts/api/notion/get_templates');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_FETCH_BASE_URL}/notion/get_templates`);
 
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
@@ -44,7 +44,7 @@ export default function Home() {
     
     for (const key in templates) {
       const id = templates[key].id;
-      const response = await fetch('prompts/api/notion/get_content', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_FETCH_BASE_URL}/notion/get_content`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
