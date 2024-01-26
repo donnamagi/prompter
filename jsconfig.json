@@ -7,7 +7,7 @@
       "@/ui/*": ["components/ui/*"],
       "@/utils/*": ["lib/utils/*"],
       "@/context/*": ["lib/context/*"],
-      "@/api/*": ["prompts/api/*"]
+      "@/api/*": ["pages/api/*"]
     }
   },
   "exclude": ["node_modules"]

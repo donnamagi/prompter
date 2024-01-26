@@ -25,15 +25,12 @@ export default function Home() {
 
   const fetchTemplates = async () => {
     try {
-      console.log('fetching templates')
       const response = await fetch('prompts/api/notion/get_templates');
-      console.log(response)
 
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
       const data = await response.json();
-      console.log(data)
       return data
 
     } catch (err) {
