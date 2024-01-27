@@ -1,8 +1,6 @@
-# README
+# Overview
 
-## Overview
-
-This application simplifies and speeds up repetitive text-based tasks with an LLM – for example, writing tickets for an application. It fetches ready-made templates via the Notion API, allowing users to choose and personalize these templates by filling in only the variable data. Once the template is filled, it's processed by OpenAI's LLM to generate a polished, context-aware response.
+This application simplifies and speeds up repetitive text-based tasks with an LLM – for example, writing tickets. It fetches ready-made templates via the Notion API, allowing users to choose and personalize these templates by filling in only the variable data. Once the template is filled, it's processed by OpenAI's LLM to generate a polished, context-aware response.
 
 To fine-tune the output, users can directly edit the `p` and `ul` tags in the response. Just point to the section you want to change, tell the app what you need, and it'll work with OpenAI's API to replace the section. This ensures the final ticket is ready to copy-pasta without any further rewriting.
 
