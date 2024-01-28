@@ -1,5 +1,6 @@
 import {React, useContext, useEffect } from 'react';
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
 import { StateContext } from 'lib/context/StateContext';
 
 import Templates from 'components/Templates';
@@ -80,6 +81,7 @@ export default function Home() {
       <main className="flex justify-center items-center min-h-screen">
           {renderScreen()}
           <Toaster richColors />
+          <Analytics />
       </main>
     </div>
   );
