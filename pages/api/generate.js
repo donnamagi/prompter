@@ -10,7 +10,8 @@ export default async function (req, res) {
     const completion = await openai.chat.completions.create({
       messages: [ ...conversation_history ],
       model: "gpt-3.5-turbo-1106",
-      temperature: 1
+      temperature: 1,
+      max_tokens: 1000,
     });
 
     const assistant_reply = completion.choices[0].message.content;
