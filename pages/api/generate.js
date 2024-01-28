@@ -9,7 +9,7 @@ export default async function (req, res) {
   try {
     const completion = await openai.chat.completions.create({
       messages: [ ...conversation_history ],
-      model: "gpt-4-0125-preview",
+      model: "gpt-3.5-turbo-1106",
       temperature: 1
     });
 
