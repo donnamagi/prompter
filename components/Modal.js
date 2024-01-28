@@ -1,6 +1,6 @@
 import {React, useContext} from 'react';
 import { Button } from "@/ui/button"
-import { TitledTextArea, TitledInput, DateRange, ProjectPicker } from '@/components/Fields';
+import { TitledTextArea, TitledInput, DateRange, Picker } from '@/components/Fields';
 import {
   Dialog,
   DialogContent,
@@ -51,16 +51,21 @@ export default function Modal() {
 
   const renderFields = () => {
     return placeholders.map((placeholder, index) => {
-      if (placeholder === 'project') {
-        return <ProjectPicker placeholder= {placeholder} />;
+      if (placeholder === 'platform') {
+        return <Picker placeholder={placeholder} />;
       }
       if (placeholder === 'description') {
-        return <TitledTextArea key={index} placeholder={placeholder} className='dark:text-white'/>;
+        return <TitledTextArea key={index} placeholder={placeholder} title={placeholder} className='dark:text-white' />;
+      }
+      if (placeholder.endsWith('-description')) {
+        const title = placeholder.slice(0, -12).split('-').join(' '); // turns 'about-you-description' to 'about you'
+        return <TitledTextArea key={index} placeholder={placeholder} title={title} className='dark:text-white' />;
       }
       if (placeholder === 'date') {
-        return <DateRange key={index} placeholder={placeholder} className='dark:text-white'/>
+        return <DateRange key={index} placeholder={placeholder} className='dark:text-white' />;
       }
-      return <TitledInput key={index} placeholder={placeholder} className='dark:text-white'/>;
+      const title = placeholder.split('-').join(' ');
+      return <TitledInput key={index} placeholder={placeholder} title={title} className='dark:text-white' />;
     });
   }
   

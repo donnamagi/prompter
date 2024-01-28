@@ -11,12 +11,12 @@ import { Calendar } from "@/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/ui/select"
 
-export function TitledInput ({ placeholder, index }) {
+export function TitledInput ({ placeholder, title, index }) {
   return (
     <>
       <div className="grid grid-cols-4 items-center">
         <Label htmlFor={placeholder} className="text-left text-black dark:text-white">
-          {placeholder} 
+          {title} 
         </Label>
       </div>
       <div className="grid items-center gap-4">
@@ -26,12 +26,12 @@ export function TitledInput ({ placeholder, index }) {
   )
 }
 
-export function TitledTextArea ({ placeholder, index }) {
+export function TitledTextArea ({ placeholder, title, index }) {
   return (
     <>
       <div className="grid grid-cols-4 items-center">
         <Label htmlFor={placeholder} className="text-left text-black dark:text-white">
-          {placeholder} 
+          {title} 
         </Label>
       </div>
       <div className="grid items-center gap-4">
@@ -91,41 +91,22 @@ export function DateRange({ index, placeholder, className }) {
   )
 }
 
-export function ProjectPicker({placeholder}) {
-  const [project, setProject] = useState();
+export function Picker({placeholder}) {
+  const [platform, setPlatform] = useState();
 
-  const magicads = `
-  MagicAds is a web application that provides a simple solution to the complex and costly process of creating 
-  UGC ads - by generating AI avatar-based, human-like UGC ads with just an URL for App store, Play store or 
-  Websites, we offer unlimited, high-performing UGC ads at your fingertips. Generating a video ad takes between 
-  5 and 60 minutes. Every video exists out of 4 scenes: Hook, Build-up, Outcome, and Call to Action. The web-application 
-  has following screens (besides our landing page): Sign-up, Onboarding, Dashboard, Video create screen, Paywall, Profile. 
-  The user can automatically download the video in the dashboard. We use Stripe for Payment progressing.`
-
-  const bcause = `
-  bcause offers a platform for easy and smart philanthropy, allowing users to start their own foundation funds within a 
-  communal trust foundation. Users can support their favorite non-profit organizations, invest in social enterprises and 
-  impact funds, and grow their contributions through returns, all without the need for notaries, lawyers, or high initial 
-  costs. The platform provides options for public visibility of users' philanthropic activities and offers various membership 
-  models for different levels of engagement.
-  `
-
-  const projects = Object.entries({
-    'MagicAds': magicads,
-    'bcause': bcause
-  });
+  const platforms = ['Linkedin', 'Email', 'Twitter', 'Instagram', 'TikTok', 'Youtube']
 
   return (
     <div className="grid gap-2">
-      <Select className="w-full" onValueChange={(value) => setProject(value)} >
+      <Select className="w-full" onValueChange={(value) => setPlatform(value)} >
         <SelectTrigger className="w-full dark:text-white truncate">
-          <SelectValue placeholder='Select your project' id={placeholder} data-value={project}/>
+          <SelectValue placeholder='Where are you planning to reach out?' id={placeholder} data-value={platform}/>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {projects.map(([project, description], index) => (
-              <SelectItem key={index} value={description} >
-                {project}
+            {platforms.map((platform, index) => (
+              <SelectItem key={index} value={platform} >
+                {platform}
               </SelectItem>
             ))}
           </SelectGroup>
