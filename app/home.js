@@ -1,5 +1,7 @@
+"use client";
+
 import {React, useContext, useEffect } from 'react';
-import { StateContext } from '@/lib/context/StateContext';
+import { StateContext } from '../lib/context/StateContext';
 
 import Templates from '@/components/Templates';
 import Overview from '@/components/Overview';
