@@ -1,10 +1,9 @@
 import {React, useContext, useEffect } from 'react';
-import Head from 'next/head';
-import { StateContext } from 'lib/context/StateContext';
+import { StateContext } from '@/lib/context/StateContext';
 
-import Templates from 'components/Templates';
-import Overview from 'components/Overview';
-import Result from 'components/Result';
+import Templates from '@/components/Templates';
+import Overview from '@/components/Overview';
+import Result from '@/components/Result';
 import { Toaster, toast } from "sonner"
 
 export default function Home() {
@@ -74,9 +73,6 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>Prompt templates</title>
-      </Head>
       <main className="flex justify-center items-center min-h-screen">
           {renderScreen()}
           <Toaster richColors />
