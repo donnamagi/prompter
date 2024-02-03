@@ -29,45 +29,69 @@ export default function Home() {
   useEffect(() => {
     const fetchContent = async (templates) => {
       try {
-        for (const key in templates) {
+        const promises = Object.keys(templates).map(async key => {
           const id = templates[key].id;
-          const response = await fetch(`${process.env.NEXT_PUBLIC_FETCH_BASE_URL}/notion/get_content`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id }),
-          });
-      
-          const data = await response.json();
-          if (response.status !== 200) {
-            throw data.error || new Error(`Request failed with status ${response.status}`);
+          try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_FETCH_BASE_URL}/notion/get_content`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ id }),
+            });
+            const data = await response.json();
+            return ({ key, data });
+          } catch (error) {
+            return ({ key, error });
           }
-          templates[key].content = data;
-        }
-        return templates;
+        });
+    
+        const results = await Promise.all(promises);
+    
+        const validTemplatesList = results.map(({ key, data, error }) => {
+          if (error) {
+            console.error(`Error fetching template ${templates[key].title}:`, error);
+            return null; 
+          }
+          const { title, id } = templates[key];
+          return {
+            title,
+            id,
+            content: data
+          };
+        }).filter(Boolean); // Remove null values (errors)
+
+        return validTemplatesList;
       } catch (err) {
         console.error(err);
       }
     }
 
     const fetchTitles = async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_FETCH_BASE_URL}/notion/get_templates`);
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_FETCH_BASE_URL}/notion/get_templates`);
 
-      if (response.status !== 200) {
-        console.log(response)
-        throw data.error || new Error(`Request failed with status ${response.status}`);
+        if (response.status !== 200) {
+          console.log(response)
+          throw data.error || new Error(`Request failed with status ${response.status}`);
+        }
+        const data = await response.json();
+
+        return data
+      } catch (err) {
+        console.error(err);
       }
-      const data = await response.json();
-
-      return data
     }
 
     const fetchTemplates = async () => {
-      const templatesObject = await fetchTitles();
-      const templates = await fetchContent(templatesObject.templates);
-      setTemplates(templates);
-      return templates;
+      try {
+        const templatesObject = await fetchTitles();
+        const templates = await fetchContent(templatesObject.templates);
+        setTemplates(templates);
+        return templates;
+      } catch (err) {
+        console.error(err)
+      }
     }
 
     toast.promise(
