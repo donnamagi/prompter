@@ -7,7 +7,6 @@ import Templates from '@/components/Templates';
 import Overview from '@/components/Overview';
 import Result from '@/components/Result';
 import { Toaster, toast } from "sonner"
-import { set } from 'date-fns';
 
 export default function Home() {
   const { currentScreen, setTemplates } = useContext(StateContext);
@@ -55,7 +54,7 @@ export default function Home() {
         return {
           title,
           id,
-          content: data
+          content: data.content
         };
       }).filter(Boolean); // Remove null values (errors)
 
