@@ -1,9 +1,10 @@
 import { Client } from "@notionhq/client";
+import { NextResponse } from "next/server";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const blockID = process.env.NOTION_PAGE_ID;
 
-export default async function (req, res) {
+export async function GET(res) {
 
   var templates = []
   const response = await notion.blocks.children.list({
@@ -17,6 +18,6 @@ export default async function (req, res) {
       templates.push({title: prompt_object.title, id: block.id});
     }
   }
-  res.status(200).json(templates);
-}
 
+  return NextResponse.json({templates}, {status: 200});
+}
