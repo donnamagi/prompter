@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { NextResponse } from "next/server";
 
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic'; 
@@ -9,7 +10,8 @@ const openai = new OpenAI({
 });
  
 export async function POST(req, res) {
-  const { messages } = await req.json();
+  const messages = await req.json();
+
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
@@ -25,11 +27,7 @@ export async function POST(req, res) {
       res.status(error.response.status).json(error.response.data);
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`);
-      res.status(500).json({
-        error: {
-          message: 'An error occurred during your request.',
-        }
-      });
+      return NextResponse.json({ status: 400}, {statusText: "Bad Request"});
     }
   }
 }

@@ -5,12 +5,14 @@ import { callAPI } from '@/utils/index';
 import { Button } from "@/ui/button";
 import { Skeleton } from "@/ui/skeleton";
 import ChangeBox from '@/components/ChangeBox';
-import { marked } from "marked";
+import { marked, use } from "marked";
 // import TurndownService from "turndown";
 // import conversation_history from "@/api/chat";
 import { StateContext } from 'app/state-provider';
 import { ResetIcon, ClipboardIcon, CheckIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import Response from '@/components/Response';
+import { useChat } from 'ai/react';
 
 const Result = () => {
   const [result, setResult] = useState(null);
@@ -18,16 +20,41 @@ const Result = () => {
   const [copySuccess, setCopySuccess] = useState(false);
   const { template, setTemplate, setCurrentScreen } = useContext(StateContext);
 
+  const getLLM = async (messages) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_FETCH_BASE_URL}/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(messages),
+      });
+      res.text().then(data => {
+        console.log(data); // final response??
+      }).catch(error => {
+        console.error("Could not parse", error);
+      });
+      
+
+    } catch (err) {
+      console.error(err)
+    }
+  };
+
+  const getResult = async () => {
+    const messages = [{ 'role': 'user', 'content': template.content }]
+    const response = await getLLM(messages);
+    // const html = marked.parse(response);
+    // setResult(html);
+    // setLoading(false);
+    // console.log('response', response);
+    setLoading(false);
+  }
+
   useEffect(() => {
     if (!template) return;
+    // setLoading(false);
+    console.log('template', template);
+    // setResult(template);
     
-    const getResult = async () => {
-      const response = await callAPI(template.content);
-      const html = marked.parse(response);
-      setResult(html);
-      setLoading(false);
-    }
-
     getResult();
   }, [template]);
 
@@ -61,7 +88,8 @@ const Result = () => {
   return (
     <div className='fixed px-10 py-10 w-full lg:w-2/3 max-h-screen overflow-y-auto'>
       {loading ? renderSkeletons() : null}
-      <ChangeBox result={result} setResult={setResult} />
+      <Response />
+      {/* <ChangeBox result={result} setResult={setResult} /> */}
       <div className="flex justify-center mt-4">
         <Link href="/">
           <Button variant='outline' className="me-2">
