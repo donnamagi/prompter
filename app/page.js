@@ -1,5 +1,5 @@
-import Main from "./main"
+import TemplateSearch from "./templateSearch"
  
 export default function Page() {
-  return  <Main />
+  return <TemplateSearch />
 }

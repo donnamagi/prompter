@@ -1,7 +1,10 @@
+"use client"
+
+import { React, useContext } from 'react';
+import { StateContext } from 'app/state-provider';
 import Overview from "@/components/Overview";
 
 export default function Page() {
-  return (
-    <Overview />
-  )
+  const {template} = useContext(StateContext);
+  return <Overview template={template} />
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import {React, useContext, useEffect } from 'react';
-import { StateContext } from '../lib/context/StateContext';
+import { StateContext } from './state-provider';
 
 import Templates from '@/components/Templates';
 import { Toaster, toast } from "sonner"
