@@ -1,12 +1,12 @@
-"use client"
+"use client" 
 
-import Home from './home'
+import TemplateSearch from './templateSearch';
 import { StateProvider } from '@/context/StateContext';
 
 export default function Main() {
   return (
     <StateProvider>
-     <Home />
+      <TemplateSearch />
     </StateProvider>
   )
 }

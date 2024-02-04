@@ -4,25 +4,10 @@ import {React, useContext, useEffect } from 'react';
 import { StateContext } from '../lib/context/StateContext';
 
 import Templates from '@/components/Templates';
-import Overview from '@/components/Overview';
-import Result from '@/components/Result';
 import { Toaster, toast } from "sonner"
 
-export default function Home() {
-  const { currentScreen, setTemplates } = useContext(StateContext);
-
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'search':
-        return <Templates />;
-      case 'overview':
-        return <Overview />;
-      case 'result':
-        return  <Result />;
-      default:
-        return <div>Invalid state</div>;
-    }
-  };
+export default function TemplateSearch() {
+  const { setTemplates } = useContext(StateContext);
 
   const fetchContent = async (templates) => {
     try {
@@ -105,12 +90,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <main className="flex justify-center items-center min-h-screen">
-          {renderScreen()}
-          <Toaster richColors />
-      </main>
-    </div>
+    <>
+      <Templates />
+      <Toaster richColors />
+    </>
   );
 }
-
