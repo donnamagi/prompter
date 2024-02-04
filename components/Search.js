@@ -2,7 +2,7 @@ import {React, useContext} from 'react';
 import { FileIcon } from "@radix-ui/react-icons";
 import { Skeleton } from "@/ui/skeleton";
 
-import { StateContext } from '@/context/StateContext';
+import { StateContext } from 'app/state-provider';
  
 import {
   Command,

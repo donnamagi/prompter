@@ -8,8 +8,9 @@ import ChangeBox from '@/components/ChangeBox';
 import { marked } from "marked";
 // import TurndownService from "turndown";
 // import conversation_history from "@/api/chat";
-import { StateContext } from '@/context/StateContext';
+import { StateContext } from 'app/state-provider';
 import { ResetIcon, ClipboardIcon, CheckIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 const Result = () => {
   const [result, setResult] = useState(null);
@@ -62,9 +63,11 @@ const Result = () => {
       {loading ? renderSkeletons() : null}
       <ChangeBox result={result} setResult={setResult} />
       <div className="flex justify-center mt-4">
-        <Button variant='outline' className="me-2" onClick={restart}> 
-          <ResetIcon/>
-        </Button>
+        <Link href="/">
+          <Button variant='outline' className="me-2">
+            <ResetIcon/>
+          </Button>
+        </Link>
         <Button onClick={copy}>
           { copySuccess ? <CheckIcon/> : <ClipboardIcon />}
         </Button>

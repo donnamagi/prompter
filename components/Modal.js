@@ -10,12 +10,13 @@ import {
   DialogTitle,
 } from "@/ui/dialog"
 import { FileTextIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
-import { StateContext } from '@/context/StateContext';
+import { StateContext } from 'app/state-provider'
 import { extractPlaceholders, replacePlaceholders } from '@/utils/index';
 
 export default function Modal() {
-  const { setCurrentScreen, template, setTemplate } = useContext(StateContext);
+  const { template, setTemplate } = useContext(StateContext);
   if (!template) return null;
   const placeholders = extractPlaceholders(template.content);
 
@@ -31,16 +32,6 @@ export default function Modal() {
 
     const finalTemplate = replacePlaceholders(template, data);
     setTemplate({ ...template, content: finalTemplate });
-  }
-
-  const showFullPrompt = () => {
-    setData();
-    setCurrentScreen('overview');
-  }
-
-  const sendDirect = () => {
-    setData();
-    setCurrentScreen('result');
   }
 
   const handleOpenChange = (open) => {
@@ -68,7 +59,7 @@ export default function Modal() {
       return <TitledInput key={index} placeholder={placeholder} title={title} className='dark:text-white' />;
     });
   }
-  
+
   return (
     <>
       <Dialog defaultOpen onOpenChange={handleOpenChange}>
@@ -83,8 +74,16 @@ export default function Modal() {
             {renderFields()}
           </div>
           <DialogFooter>
-            <Button variant='outline' onClick={showFullPrompt}> <FileTextIcon /> </Button>
-            <Button onClick={sendDirect}> <PaperPlaneIcon /> </Button>
+            <Button asChild variant='outline'> 
+              <Link href="/overview" onClick={() => setData()}>
+                <FileTextIcon /> 
+              </Link>
+            </Button>
+            <Button asChild> 
+              <Link href="/result" onClick={() => setData()}>
+                <PaperPlaneIcon /> 
+              </Link>
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

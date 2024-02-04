@@ -1,7 +1,7 @@
 import { React, useContext } from 'react';
 import Search from '@/components/Search';
 import Modal from '@/components/Modal';
-import { StateContext } from '@/context/StateContext';
+import { StateContext } from 'app/state-provider';
 
 export default function Templates() {
   const {templates} = useContext(StateContext);
