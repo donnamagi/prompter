@@ -18,7 +18,7 @@ export async function POST(req, res) {
       stream: true,
       messages: messages,
     });
- 
+
     const stream = OpenAIStream(response);
     return new StreamingTextResponse(stream);
 
@@ -27,7 +27,7 @@ export async function POST(req, res) {
       res.status(error.response.status).json(error.response.data);
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`);
-      return NextResponse.json({ status: 400}, {statusText: "Bad Request"});
+      return new NextResponse.json({ status: 400}, {statusText: "Bad Request"});
     }
   }
 }
