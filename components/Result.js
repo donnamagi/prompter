@@ -1,18 +1,14 @@
 "use client";
 
-import {React, useState, useContext, useEffect, StrictMode } from 'react';
-import { callAPI } from '@/utils/index';
+import {React, useState, useContext, useEffect } from 'react';
 import { Button } from "@/ui/button";
 import { Skeleton } from "@/ui/skeleton";
 import ChangeBox from '@/components/ChangeBox';
-import { marked, use } from "marked";
-// import TurndownService from "turndown";
-// import conversation_history from "@/api/chat";
+import { marked } from "marked";
+import TurndownService from "turndown";
 import { StateContext } from 'app/state-provider';
 import { ResetIcon, ClipboardIcon, CheckIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
-import Response from '@/components/Response';
-import { useChat } from 'ai/react';
 
 const Result = () => {
   const [result, setResult] = useState('');
@@ -66,18 +62,10 @@ const Result = () => {
     );
   };
 
-  const restart = () => {
-    setCurrentScreen('search');
-    setTemplate(null);
-    // conversation_history.splice(1); // leaving the system prompt only
-  };
-
   const copy = () => {
     if (!result) return;
-
-    // const turndownService = new TurndownService();
-    // const markdown = turndownService.turndown(result);
-    const markdown = result;
+    const turndownService = new TurndownService();
+    const markdown = turndownService.turndown(result);
     navigator.clipboard.writeText(markdown)
       .then(() => setCopySuccess(true))
       .catch(error => console.error("Failed to copy to clipboard:", error));
@@ -88,7 +76,7 @@ const Result = () => {
       {loading ? renderSkeletons() : null}
       <ChangeBox result={result} setResult={setResult} />
       <div className="flex justify-center mt-4">
-        <Link href="/">
+        <Link href="/" onClick={() => setTemplate(null)}>
           <Button variant='outline' className="me-2">
             <ResetIcon/>
           </Button>
