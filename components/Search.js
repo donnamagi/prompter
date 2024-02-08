@@ -36,7 +36,7 @@ export default function Search({templates}) {
   };
 
   return (
-    <container className='fixed top-1/3 w-2/3 lg:w-1/3'>
+    <div className='fixed top-1/3 w-2/3 lg:w-1/3'>
       <Command className="rounded-lg border shadow-md">
         <CommandInput placeholder="Search for templates" />
         <CommandList>
@@ -46,9 +46,6 @@ export default function Search({templates}) {
           </CommandGroup>
         </CommandList>
       </Command>
-      <div className="flex justify-center mt-4">
-        <a className="text-gray-500 text-sm" href="https://www.notion.so/donnamagi/Prompts-API-0578db9a3c3847a795934d65a161ac95?pvs=4" target="_blank">Templates from Notion</a>
-      </div>
-    </container>
+    </div>
   );
 }
