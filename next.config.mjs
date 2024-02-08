@@ -1,7 +1,8 @@
 const ispProd = process.env.NODE_ENV === 'production';
 
 export default {
-  assetPrefix: ispProd ? 'https://prompts-eta.vercel.app/' : '/',
+  assetPrefix: ispProd ? 'https://prompts-eta.vercel.app/prompts' : '/',
+  basePath: ispProd ? '/prompts' : '',
 
   async headers() {
     return [
