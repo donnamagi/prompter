@@ -18,7 +18,7 @@ export default function Search({templates}) {
 
   const mapTemplates = (templates) => {
     return templates.map((template, index) => (
-      <CommandItem key={index} onSelect={() => getResult(index)}>
+      <CommandItem key={index} onSelect={() => setTemplate(templates[index])}>
         <FileIcon className="mr-2 h-4 w-4" />
         <span> {template.title} </span>
       </CommandItem>
@@ -34,10 +34,6 @@ export default function Search({templates}) {
       </>
     );
   };
-
-  const getResult = (key) => {;
-    setTemplate(templates[key]);
-  }
 
   return (
     <container className='fixed top-1/3 w-2/3 lg:w-1/3'>

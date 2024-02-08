@@ -1,4 +1,4 @@
-import {React, useContext} from 'react';
+import {React, useContext, useState} from 'react';
 import { Button } from "@/ui/button"
 import { TitledTextArea, TitledInput, DateRange, Picker } from '@/components/Fields';
 import {
@@ -14,9 +14,11 @@ import Link from 'next/link';
 
 import { StateContext } from 'app/state-provider'
 import { extractPlaceholders, replacePlaceholders } from '@/utils/index';
+import Overview from '@/components/Overview';
 
 export default function Modal() {
   const { template, setTemplate } = useContext(StateContext);
+  const [overview, setOverview] = useState(false);
   if (!template) return null;
   const placeholders = extractPlaceholders(template.content);
 
@@ -43,7 +45,7 @@ export default function Modal() {
   const renderFields = () => {
     return placeholders.map((placeholder, index) => {
       if (placeholder === 'platform') {
-        return <Picker placeholder={placeholder} />;
+        return <Picker placeholder={placeholder} key={index} />;
       }
       if (placeholder === 'description') {
         return <TitledTextArea key={index} placeholder={placeholder} title={placeholder} className='dark:text-white' />;
@@ -60,6 +62,19 @@ export default function Modal() {
     });
   }
 
+  const Fields = () => {
+    return (
+      <>
+        {renderFields()}
+      </>
+    );
+  }
+
+  const getOverview = () => {
+    setData();
+    setOverview(true);
+  }
+
   return (
     <>
       <Dialog defaultOpen onOpenChange={handleOpenChange}>
@@ -67,18 +82,18 @@ export default function Modal() {
           <DialogHeader>
             <DialogTitle className='dark:text-zinc-300'>{template.title}</DialogTitle>
             <DialogDescription>
-              Enter variables. 'Next' to send to OpenAI.
+              Enter variables. Arrow sends to OpenAI.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4" id="form">
-            {renderFields()}
+            {overview ? <Overview /> : <Fields />}
           </div>
           <DialogFooter>
-            <Button asChild variant='outline'> 
-              <Link href="/overview" onClick={() => setData()}>
+            {/* {overview ? null : 
+              <Button variant='outline' onClick={() => getOverview()}> 
                 <FileTextIcon /> 
-              </Link>
-            </Button>
+              </Button>
+            } */}
             <Button asChild> 
               <Link href="/result" onClick={() => setData()}>
                 <PaperPlaneIcon /> 

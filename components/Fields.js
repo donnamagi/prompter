@@ -76,9 +76,8 @@ export function DateRange({ index, placeholder, className }) {
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent className="w-auto p-0" align="center">
           <Calendar
-            initialFocus
             mode="range"
             defaultMonth={date?.from}
             selected={date}
@@ -91,14 +90,14 @@ export function DateRange({ index, placeholder, className }) {
   )
 }
 
-export function Picker({placeholder}) {
+export function Picker({placeholder, index}) {
   const [platform, setPlatform] = useState();
 
   const platforms = ['Linkedin', 'Email', 'Twitter', 'Instagram', 'TikTok', 'Youtube']
 
   return (
     <div className="grid gap-2">
-      <Select className="w-full" onValueChange={(value) => setPlatform(value)} >
+      <Select key={index} className="w-full" onValueChange={(value) => setPlatform(value)} >
         <SelectTrigger className="w-full dark:text-white truncate">
           <SelectValue placeholder='Where are you planning to reach out?' id={placeholder} data-value={platform}/>
         </SelectTrigger>
