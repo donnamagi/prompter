@@ -4,7 +4,11 @@ import { NextResponse } from "next/server";
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const blockID = process.env.NOTION_PAGE_ID;
 
-export async function GET(res) {
+export async function OPTIONS() {
+  return NextResponse.json({status: 200});
+}
+
+export async function GET() {
 
   var templates = []
   const response = await notion.blocks.children.list({

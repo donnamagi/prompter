@@ -1,8 +1,11 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
 
-
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
+
+export async function OPTIONS() {
+  return NextResponse.json({status: 200});
+}
 
 export async function POST(req) {
 
@@ -43,4 +46,3 @@ export async function POST(req) {
     return NextResponse.json({ status: 400}, {statusText: "Bad Request"});
   }
 }
-

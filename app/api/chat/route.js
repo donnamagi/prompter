@@ -8,7 +8,11 @@ export const dynamic = 'force-dynamic';
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
- 
+
+export async function OPTIONS() {
+  return NextResponse.json({status: 200});
+}
+
 export async function POST(req, res) {
   const messages = await req.json();
 
