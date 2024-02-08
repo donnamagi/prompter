@@ -14,7 +14,7 @@ const Result = () => {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(true); 
   const [copySuccess, setCopySuccess] = useState(false);
-  const { template, setTemplate, setCurrentScreen } = useContext(StateContext);
+  const { template, setTemplate } = useContext(StateContext);
 
   const getLLM = async (messages) => {
     try {
@@ -26,14 +26,26 @@ const Result = () => {
       setLoading(false);
       const reader = res.body.getReader();
       const textDecoder = new TextDecoder('utf-8'); 
-      let resText = '';
+      let unparsed = '';
+
       while (true) {
         const { done, value } = await reader.read();
-        if (done) return resText;
+        const chunk = textDecoder.decode(value, { stream: true }); 
+        unparsed += chunk;
 
-        const text = textDecoder.decode(value, { stream: true }); // Decode each chunk
-        resText += text;
-        setResult(prevResult => prevResult + text);
+        if (done) {
+          const html = marked.parse(unparsed); 
+          setResult(prevResult => prevResult + html);
+          break;
+        }
+
+        if (unparsed.includes('\n')) {
+          const lines = unparsed.split('\n');
+          const line = lines.shift();
+          const html = marked.parse(line); 
+          setResult(prevResult => prevResult + html);
+          unparsed = lines.slice(1).join('\n'); 
+        }
       }
     } catch (err) {
       console.error(err)
@@ -42,9 +54,7 @@ const Result = () => {
 
   const getResult = async () => {
     const messages = [{ 'role': 'user', 'content': template.content }]
-    const response = await getLLM(messages);
-    const html = marked.parse(response);
-    setResult(html);
+    await getLLM(messages);
   }
 
   useEffect(() => {
